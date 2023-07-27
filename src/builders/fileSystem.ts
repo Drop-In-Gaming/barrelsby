@@ -64,8 +64,11 @@ export function buildFileSystemBarrel(
   _: Logger, // Not used
   baseUrl: BaseUrl
 ): string {
+
   const structure: ExportStructure = {};
+
   let content = '';
+
   modules
     .map(
       (module: FileTreeLocation): Import => ({
@@ -75,24 +78,41 @@ export function buildFileSystemBarrel(
     )
     .sort(compareImports)
     .forEach((imported: Import): void => {
+
       const relativePath = path.relative(directory.path, imported.module.path);
+
       const directoryPath = path.dirname(relativePath);
+
       const parts = directoryPath.split(path.sep);
+
       const alias = relativePath.replace(nonAlphaNumeric, '');
+
       content += `import * as ${alias} from ${quoteCharacter}${imported.path}${quoteCharacter}${semicolonCharacter}
 `;
+
       const fileName = path.basename(imported.module.name, '.ts');
+
       buildStructureSubsection(structure, parts, fileName, alias);
+
     });
+
   for (const key of Object.keys(structure).sort()) {
+
     const exported = structure[key];
+
     if (typeof exported === 'string') {
+
       content += `export {${exported} as ${key}}${semicolonCharacter}
 `;
     } else {
+
       content += `export const ${key} = ${stringify(exported, '')}${semicolonCharacter}
 `;
+
     }
+
   }
+
   return content;
+
 }

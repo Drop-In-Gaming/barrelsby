@@ -72,9 +72,17 @@ export function loadDirectoryModules(
   exclude: string[],
   local: boolean
 ): FileTreeLocation[] {
-  const modules = getModules(directory, logger, local);
+
+  let modules = getModules(directory, logger, local);
+
+  logger.debug( modules);
 
   const filters = buildFilters(include, exclude);
 
-  return filterModules(filters, modules, logger);
+  modules= filterModules(filters, modules, logger);
+
+  logger.debug( modules);
+
+  return modules;
+
 }

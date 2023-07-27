@@ -81,7 +81,7 @@ function stripThisDirectory(location: string, baseUrl: BaseUrl) {
 
 /** Strips the .ts or .tsx file extension from a path and returns the base filename. */
 export function getBasename(relativePath: string) {
-  const mayBeSuffix = ['.ts', '.tsx', '.d.ts'];
+  const mayBeSuffix = ['.js', '.ts', '.tsx', '.d.ts'];
   let mayBePath = relativePath;
   mayBeSuffix.map(suffix => {
     const tmpPath = path.basename(relativePath, suffix);

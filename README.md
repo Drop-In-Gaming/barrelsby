@@ -124,6 +124,7 @@ Also export the default export of the file. Currently works only with the `flat`
 
 ```TypeScript
 export * from "./barrel";
+export * from "./barrel";
 export { default as barrel } from "./barrel";
 ```
 
